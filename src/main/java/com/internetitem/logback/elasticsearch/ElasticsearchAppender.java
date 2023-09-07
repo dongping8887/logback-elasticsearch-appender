@@ -16,7 +16,13 @@ public class ElasticsearchAppender extends AbstractElasticsearchAppender<ILoggin
 
     @Override
     protected void appendInternal(ILoggingEvent eventObject) {
-
+        // add by dongping 20230907 begin
+        boolean isOpen = Boolean.parseBoolean(System.getProperty("cictec.logback-elasticsearch.enabled", "true"));
+        if (!isOpen){
+            return;
+        }
+        // add by dongping 20230907 end
+        
         String targetLogger = eventObject.getLoggerName();
 
         String loggerName = settings.getLoggerName();
